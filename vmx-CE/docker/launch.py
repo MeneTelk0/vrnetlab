@@ -134,6 +134,7 @@ class VMX_vcp(vrnetlab.VM):
         self.wait_write("set system services ssh")
         self.wait_write("set system services netconf ssh")
         self.wait_write("set system services netconf rfc-compliant")
+        self.wait_write("set system services netconf yang-compliant")
         self.wait_write("set system login user %s class super-user authentication plain-text-password" % self.username)
         self.wait_write(self.password, 'New password:')
         self.wait_write(self.password, 'Retype new password:')
@@ -143,6 +144,11 @@ class VMX_vcp(vrnetlab.VM):
         self.wait_write("set interfaces fxp0 unit 0 family inet address 10.0.0.15/24")
         self.wait_write("delete interfaces fxp0 unit 0 family inet dhcp")
         self.wait_write("delete system processes dhcp-service")
+        self.wait_write("set interfaces ge-0/0/0 unit 0 family inet address address 172.30.0.4/24")
+        self.wait_write("set interfaces ge-0/0/1 unit 0 family inet address address 192.168.2.2/24")
+        self.wait_write("set routing-options static route 0.0.0.0/0 next-hop 192.168.2.1")
+
+
         self.wait_write("commit")
         self.wait_write("exit")
 

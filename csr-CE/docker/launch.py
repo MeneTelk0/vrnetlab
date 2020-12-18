@@ -147,6 +147,27 @@ class CSR_vm(vrnetlab.VM):
         self.wait_write("restconf")
         self.wait_write("netconf-yang")
 
+        self.wait_write("interface Loopback0")
+        self.wait_write("ip address 20.20.20.20 255.255.255.255")
+        self.wait_write("no shut")
+        self.wait_write("exit")
+
+        self.wait_write("interface GigabitEthernet2")
+        self.wait_write("ip address 172.30.0.2 255.255.255.0")
+        self.wait_write("no shut")
+        self.wait_write("exit")
+
+        self.wait_write("interface GigabitEthernet3")
+        self.wait_write("ip address 192.168.0.2 255.255.255.0")
+        self.wait_write("no shut")
+        self.wait_write("exit")
+
+        self.wait_write("router bgp 64510")
+        self.wait_write("bgp log-neighbor-changes")
+        self.wait_write("network 20.20.20.20 mask 255.255.255.255")
+        self.wait_write("neighbor 192.168.0.1 remote-as 64500")
+        self.wait_write("exit")
+
         self.wait_write("line vty 0 4")
         self.wait_write("login local")
         self.wait_write("transport input all")
